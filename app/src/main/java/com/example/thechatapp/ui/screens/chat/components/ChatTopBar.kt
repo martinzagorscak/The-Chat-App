@@ -28,6 +28,7 @@ import com.example.thechatapp.R
 import com.example.thechatapp.ui.theme.Typography
 import com.example.thechatapp.ui.theme.padding100
 import com.example.thechatapp.ui.theme.padding200
+import com.example.thechatapp.ui.theme.padding300
 import com.example.thechatapp.ui.theme.secondaryColor
 import com.example.thechatapp.ui.theme.tertiaryColor
 
@@ -46,7 +47,7 @@ fun ChatTopBar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(padding200),
+            .padding(padding300),
     ) {
         IconButton(
             onClick = onBackClick,

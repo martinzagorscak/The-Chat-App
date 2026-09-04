@@ -24,9 +24,7 @@ import com.example.thechatapp.ui.theme.padding800
 private val emptyStateIconSize = 256.dp
 
 @Composable
-fun EmptyChatState(
-    modifier: Modifier = Modifier
-) {
+fun EmptyChatState(modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -39,7 +37,6 @@ fun EmptyChatState(
             modifier = Modifier.size(emptyStateIconSize)
         )
 
-
         Text(
             text = stringResource(R.string.chat_empty_state_title),
             style = Typography.headlineMedium,
@@ -47,7 +44,6 @@ fun EmptyChatState(
         )
 
         Spacer(modifier = Modifier.height(padding400))
-
 
         Text(
             text = stringResource(R.string.chat_empty_state_description),
