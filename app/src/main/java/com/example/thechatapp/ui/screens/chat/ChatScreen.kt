@@ -1,4 +1,4 @@
-package com.example.thechatapp.ui.theme.screens
+package com.example.thechatapp.ui.screens.chat
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

@@ -13,8 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.thechatapp.ui.theme.TheChatAppTheme
-import com.example.thechatapp.ui.theme.screens.ChatScreen
-import com.example.thechatapp.ui.theme.screens.ChatScreenCallbacks
+import com.example.thechatapp.ui.screens.chat.ChatScreen
+import com.example.thechatapp.ui.screens.chat.ChatScreenCallbacks
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
