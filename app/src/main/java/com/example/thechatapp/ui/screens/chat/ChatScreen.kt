@@ -45,6 +45,7 @@ import com.example.thechatapp.ui.theme.secondaryColor
 
 private val defaultMessagePadding = padding200
 private val consecutiveMessagePadding = padding100
+private val messageBubbleMaxWidth = 300.dp
 
 @Composable
 fun ChatScreen(
@@ -106,7 +107,7 @@ fun ChatScreen(
                             MessageBubble(
                                 text = "text: $it ".repeat(it + 1),
                                 isCurrentUserMessage = isCurrentUserMessage,
-                                modifier = Modifier.widthIn(max = 300.dp)
+                                modifier = Modifier.widthIn(max = messageBubbleMaxWidth)
                             )
                         }
                     }

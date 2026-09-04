@@ -12,9 +12,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.example.thechatapp.ui.theme.TheChatAppTheme
 import com.example.thechatapp.ui.screens.chat.ChatScreen
 import com.example.thechatapp.ui.screens.chat.ChatScreenCallbacks
+import com.example.thechatapp.ui.theme.TheChatAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                             ChatScreenCallbacks(
                                 onSendMessage = {},
                                 onClearChatClick = {},
-                                onBackClick = {},
+                                onBackClick = { this.onBackPressed()},
                                 onMoreOptionsClick = { showClearChatDialog = true },
                                 onMoreOptionsDismiss = { showClearChatDialog = false },
                             )

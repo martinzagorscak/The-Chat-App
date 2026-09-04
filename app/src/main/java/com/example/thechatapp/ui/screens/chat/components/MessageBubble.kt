@@ -20,13 +20,13 @@ import androidx.compose.ui.unit.sp
 import com.example.thechatapp.R
 import com.example.thechatapp.ui.theme.Typography
 import com.example.thechatapp.ui.theme.messageReadColor
-import com.example.thechatapp.ui.theme.padding050
+import com.example.thechatapp.ui.theme.padding100
 import com.example.thechatapp.ui.theme.padding200
 import com.example.thechatapp.ui.theme.padding300
 import com.example.thechatapp.ui.theme.primaryColor
 import com.example.thechatapp.ui.theme.tertiaryColor
 
-private val messageReadIconSize = 12.dp
+private val messageReadIconSize = 16.dp
 private val messageFontSize = 20.sp
 private const val ROUNDED_CORNER_PERCENT = 20
 
@@ -61,7 +61,7 @@ fun MessageBubble(
                 contentDescription = null,
                 tint = messageReadColor,
                 modifier = Modifier
-                    .padding(padding050)
+                    .padding(padding100)
                     .size(messageReadIconSize)
                     .align(Alignment.BottomEnd)
             )
