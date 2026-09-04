@@ -1,13 +1,18 @@
 package com.example.thechatapp.ui.screens.chat
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DividerDefaults
@@ -26,8 +31,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.thechatapp.R
+import com.example.thechatapp.ui.screens.chat.components.ChatFooter
+import com.example.thechatapp.ui.screens.chat.components.ChatTimeStampItem
+import com.example.thechatapp.ui.screens.chat.components.ChatTopBar
+import com.example.thechatapp.ui.screens.chat.components.EmptyChatState
+import com.example.thechatapp.ui.screens.chat.components.MessageBubble
+import com.example.thechatapp.ui.theme.padding100
 import com.example.thechatapp.ui.theme.padding200
+import com.example.thechatapp.ui.theme.padding400
 import com.example.thechatapp.ui.theme.secondaryColor
+
+private val defaultMessagePadding = padding200
+private val consecutiveMessagePadding = padding100
 
 @Composable
 fun ChatScreen(
@@ -73,7 +88,37 @@ fun ChatScreen(
         modifier = modifier.fillMaxSize(),
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
+            if (false) {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(defaultMessagePadding),
+                    contentPadding = PaddingValues(padding400),
+                    reverseLayout = true,
+                ) {
+                    // TODO - connect with VM view state
+                    items(20) {
+                        val isCurrentUserMessage = it % 2 == 0
+                        Row(
+                            horizontalArrangement = if (isCurrentUserMessage) Arrangement.End else Arrangement.Start,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            MessageBubble(
+                                text = "text: $it ".repeat(it + 1),
+                                isCurrentUserMessage = isCurrentUserMessage,
+                            )
+                        }
+                    }
 
+                    // because of the reverse layout the timestamp should be messages
+                    item {
+                        ChatTimeStampItem(
+                            dayOfWeek = "Thursday",
+                            time = "11:59"
+                        )
+                    }
+                }
+            } else {
+                EmptyChatState()
+            }
         }
 
         if (showClearChatDialog) {

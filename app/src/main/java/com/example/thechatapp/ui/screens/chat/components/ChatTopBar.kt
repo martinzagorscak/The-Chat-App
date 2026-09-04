@@ -1,4 +1,4 @@
-package com.example.thechatapp.ui.screens.chat
+package com.example.thechatapp.ui.screens.chat.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,7 +31,7 @@ import com.example.thechatapp.ui.theme.padding200
 import com.example.thechatapp.ui.theme.secondaryColor
 import com.example.thechatapp.ui.theme.tertiaryColor
 
-private val TopBarIconSize = 36.dp
+private val TopBarIconSize = 32.dp
 private val TopBarProfileImageSize = 36.dp
 
 @Composable

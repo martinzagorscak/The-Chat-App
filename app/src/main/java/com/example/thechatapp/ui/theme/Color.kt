@@ -14,3 +14,5 @@ val primaryColor = Color(0xFFFF1378)
 val secondaryColor = Color(0xFFEC7189)
 val tertiaryColor = Color(0xFFC6CCD4)
 val backgroundColor = Color(0xFFFFFFFF)
+
+val messageReadColor = Color(0xFF00FFFF)

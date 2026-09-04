@@ -5,4 +5,6 @@
     <string name="clear_chat_dialog_message">Are you sure you want to clear the chat history? This action cannot be undone.</string>
     <string name="clear_chat_dialog_positive_button">Clear</string>
     <string name="clear_chat_dialog_negative_button">Cancel</string>
+    <string name="chat_empty_state_title">Chat empty</string>
+    <string name="chat_empty_state_description">Start a conversation by sending a message.</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.thechatapp.ui.screens.chat
+package com.example.thechatapp.ui.screens.chat.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
