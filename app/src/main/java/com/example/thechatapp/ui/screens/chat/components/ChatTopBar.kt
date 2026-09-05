@@ -40,7 +40,7 @@ fun ChatTopBar(
     userImageUrl: String,
     userName: String,
     onBackClick: () -> Unit,
-    onMoreOptionsClick: () -> Unit,
+    onMoreOptionsClick: (() -> Unit)?,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -89,16 +89,18 @@ fun ChatTopBar(
                 .padding(end = padding100)
         )
 
-        IconButton(
-            onClick = onMoreOptionsClick,
-            modifier = Modifier.size(TopBarIconSize + padding200)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_more),
-                contentDescription = "More Options",
-                tint = tertiaryColor,
-                modifier = Modifier.size(TopBarIconSize)
-            )
+        onMoreOptionsClick?.let {
+            IconButton(
+                onClick = onMoreOptionsClick,
+                modifier = Modifier.size(TopBarIconSize + padding200)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_more),
+                    contentDescription = "More Options",
+                    tint = tertiaryColor,
+                    modifier = Modifier.size(TopBarIconSize)
+                )
+            }
         }
     }
 }

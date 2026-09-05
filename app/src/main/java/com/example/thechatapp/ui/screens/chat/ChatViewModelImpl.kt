@@ -23,6 +23,7 @@ import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Instant
 
 val EMPTY = ""
+private val CURRENT_LOGGED_IN_USER_ID = "current_logged_in_user_id"
 private val BOT_USER_ID = "bot_user_id"
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -91,7 +92,11 @@ internal class ChatViewModelImpl(
         viewModelScope.launch(Dispatchers.Default) {
             val message = messageInputViewState().first().message
             messageInput.update { EMPTY }
-            sendMessageUseCase(message = message)
+            sendMessageUseCase(
+                userId = CURRENT_LOGGED_IN_USER_ID,
+                receiverId = BOT_USER_ID,
+                message = message
+            )
         }
     }
 

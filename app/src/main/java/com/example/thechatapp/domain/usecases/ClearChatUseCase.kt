@@ -1,6 +1,6 @@
 package com.example.thechatapp.domain.usecases
 
-import com.example.thechatapp.data.ChatRepository
+import com.example.thechatapp.data.repository.ChatRepository
 
 interface ClearChatUseCase {
     suspend operator fun invoke(userId: String)

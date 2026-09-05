@@ -11,6 +11,8 @@ composeBom = "2026.02.01"
 coil = "3.6.1"
 koin = "4.2.2"
 kotlinxDateTime = "0.8.0"
+room_version = "3.0.2"
+ksp = "2.3.11"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,8 +34,11 @@ coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", versi
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
+androidx-room-runtime = { group = "androidx.room3", name = "room3-runtime", version.ref = "room_version" }
+androidx-room-compiler = { group = "androidx.room3", name = "room3-compiler", version.ref = "room_version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

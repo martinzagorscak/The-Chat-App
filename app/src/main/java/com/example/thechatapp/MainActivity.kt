@@ -43,7 +43,10 @@ class MainActivity : ComponentActivity() {
                             ChatScreenCallbacks(
                                 onMessageInputChanged = viewModel::onMessageInputChanged,
                                 onSendMessage = viewModel::sendMessage,
-                                onClearChatClick = viewModel::clearChat,
+                                onClearChatClick = {
+                                    showClearChatDialog = false
+                                    viewModel.clearChat()
+                                },
                                 onBackClick = { this.onBackPressed() },
                                 onMoreOptionsClick = { showClearChatDialog = true },
                                 onMoreOptionsDismiss = { showClearChatDialog = false },

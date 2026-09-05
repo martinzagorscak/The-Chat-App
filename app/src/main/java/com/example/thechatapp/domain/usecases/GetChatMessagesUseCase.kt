@@ -1,6 +1,6 @@
 package com.example.thechatapp.domain.usecases
 
-import com.example.thechatapp.data.ChatRepository
+import com.example.thechatapp.data.repository.ChatRepository
 import com.example.thechatapp.domain.model.ChatItem
 import kotlinx.coroutines.flow.Flow
 

@@ -64,7 +64,7 @@ fun ChatScreen(
                     userImageUrl = userViewState.profileImageUrl,
                     userName = userViewState.name,
                     onBackClick = callbacks.onBackClick,
-                    onMoreOptionsClick = callbacks.onMoreOptionsClick,
+                    onMoreOptionsClick = callbacks.onMoreOptionsClick.takeIf { messagesViewState is ChatViewState.MessagesViewState.Loaded && messagesViewState.messages.isNotEmpty() },
                 )
                 HorizontalDivider(
                     color = Color.Transparent,
@@ -111,7 +111,8 @@ fun ChatScreen(
                                             isMessageFromCurrentUser = chatItem.hasCurrentUserSent,
                                             modifier = Modifier
                                                 .widthIn(max = messageBubbleMaxWidth)
-                                                    .padding(additionalMessagePadding.takeIf { chatItem.isConsecutiveMessage.not() } ?: 0.dp)
+                                                // just top padding for consecutive messages because the precursor in above it
+                                                .padding(top = additionalMessagePadding.takeIf { chatItem.isConsecutiveMessage.not() } ?: 0.dp)
                                         )
                                     }
                                 }
