@@ -41,12 +41,14 @@ import com.example.thechatapp.ui.screens.chat.components.LoadingIndicator
 import com.example.thechatapp.ui.screens.chat.components.MessageBubble
 import com.example.thechatapp.ui.theme.padding050
 import com.example.thechatapp.ui.theme.padding200
+import com.example.thechatapp.ui.theme.padding300
 import com.example.thechatapp.ui.theme.padding400
-import com.example.thechatapp.ui.theme.secondaryColor
+import com.example.thechatapp.ui.theme.warningColor
 
 private val defaultMessagePadding = padding050
 private val additionalMessagePadding = padding200
 private val messageBubbleMaxWidth = 300.dp
+private val messageBubbleMinWidth = 50.dp
 
 @Composable
 fun ChatScreen(
@@ -101,7 +103,7 @@ fun ChatScreen(
                     ) {
                         items(messagesViewState.messages) { chatItem ->
                             when (chatItem) {
-                                is PresentableChatItem.PresentableMessageItem -> {
+                                is PresentableChatItem.MessageItem -> {
                                     Row(
                                         horizontalArrangement = if (chatItem.hasCurrentUserSent) Arrangement.End else Arrangement.Start,
                                         modifier = Modifier.fillMaxWidth()
@@ -109,18 +111,20 @@ fun ChatScreen(
                                         MessageBubble(
                                             text = chatItem.content,
                                             isMessageFromCurrentUser = chatItem.hasCurrentUserSent,
+                                            isMessageRead = chatItem.isRead,
                                             modifier = Modifier
-                                                .widthIn(max = messageBubbleMaxWidth)
+                                                .widthIn(max = messageBubbleMaxWidth, min = messageBubbleMinWidth)
                                                 // just top padding for consecutive messages because the precursor in above it
                                                 .padding(top = additionalMessagePadding.takeIf { chatItem.isConsecutiveMessage.not() } ?: 0.dp)
                                         )
                                     }
                                 }
 
-                                is PresentableChatItem.PresentableTimeStampDividerItem -> {
+                                is PresentableChatItem.TimeStampDividerItem -> {
                                     ChatTimeStampDividerItem(
                                         dayOfWeek = chatItem.dayOfWeek,
                                         time = chatItem.formattedTime,
+                                        modifier = Modifier.padding(vertical = padding300)
                                     )
                                 }
                             }
@@ -150,6 +154,7 @@ fun ChatScreen(
             confirmButton = {
                 Text(
                     text = stringResource(R.string.clear_chat_dialog_positive_button),
+                    color = warningColor,
                     modifier = Modifier
                         .clip(CircleShape)
                         .clickable(onClick = callbacks.onClearChatClick)
@@ -159,7 +164,6 @@ fun ChatScreen(
             dismissButton = {
                 Text(
                     text = stringResource(R.string.clear_chat_dialog_negative_button),
-                    color = secondaryColor,
                     modifier = Modifier
                         .clip(CircleShape)
                         .clickable(onClick = callbacks.onMoreOptionsDismiss)

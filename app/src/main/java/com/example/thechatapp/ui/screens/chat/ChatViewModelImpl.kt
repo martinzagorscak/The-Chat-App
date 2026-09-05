@@ -7,7 +7,7 @@ import com.example.thechatapp.domain.usecases.ClearChatUseCase
 import com.example.thechatapp.domain.usecases.GetChatMessagesUseCase
 import com.example.thechatapp.domain.usecases.GetUserProfileUseCase
 import com.example.thechatapp.domain.usecases.SendMessageUseCase
-import com.example.thechatapp.ui.model.PresentableChatItem
+import com.example.thechatapp.ui.model.toPresentableChatItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -16,11 +16,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.format
-import kotlinx.datetime.toLocalDateTime
-import kotlin.time.Instant
 
 val EMPTY = ""
 private val CURRENT_LOGGED_IN_USER_ID = "current_logged_in_user_id"
@@ -50,30 +45,7 @@ internal class ChatViewModelImpl(
 
     override fun messagesViewState(): Flow<ChatViewState.MessagesViewState> = chatMessages.mapLatest { messages ->
         if (messages.isNotEmpty()) {
-            ChatViewState.MessagesViewState.Loaded(
-                messages = messages.map { chatItem ->
-                    when (chatItem) {
-                        is ChatItem.Message -> {
-                            PresentableChatItem.PresentableMessageItem(
-                                id = chatItem.id,
-                                content = chatItem.content,
-                                timestamp = chatItem.timestamp,
-                                hasCurrentUserSent = chatItem.hasCurrentUserSent,
-                                isConsecutiveMessage = chatItem.isConsecutiveMessage,
-                                isRead = chatItem.isRead,
-                            )
-                        }
-
-                        is ChatItem.TimeStampDivider -> {
-                            PresentableChatItem.PresentableTimeStampDividerItem(
-                                timestamp = chatItem.timestamp,
-                                dayOfWeek = chatItem.timestamp.getDayOfWeek(),
-                                formattedTime = chatItem.timestamp.getFormattedDate(),
-                            )
-                        }
-                    }
-                }
-            )
+            ChatViewState.MessagesViewState.Loaded(messages = messages.map(ChatItem::toPresentableChatItem))
         } else {
             ChatViewState.MessagesViewState.Empty
         }
@@ -104,21 +76,5 @@ internal class ChatViewModelImpl(
         viewModelScope.launch(Dispatchers.Default) {
             clearChatUseCase(userId = BOT_USER_ID)
         }
-    }
-
-    private fun Long.getDayOfWeek(): String {
-        val dateTime = Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.currentSystemDefault())
-        return dateTime.dayOfWeek.name.lowercase().replaceFirstChar { it.titlecase() }
-    }
-
-    private fun Long.getFormattedDate(): String {
-        val dateTime = Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.currentSystemDefault())
-        return dateTime.format(timeFormatter)
-    }
-
-    private val timeFormatter = LocalDateTime.Format {
-        hour()
-        chars(":")
-        minute()
     }
 }

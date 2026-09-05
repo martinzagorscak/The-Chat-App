@@ -20,6 +20,9 @@ import androidx.compose.ui.unit.sp
 import com.example.thechatapp.R
 import com.example.thechatapp.ui.theme.Typography
 import com.example.thechatapp.ui.theme.messageReadColor
+import com.example.thechatapp.ui.theme.messageUnReadColor
+import com.example.thechatapp.ui.theme.onDarkBackgroundColor
+import com.example.thechatapp.ui.theme.onLightBackgroundColor
 import com.example.thechatapp.ui.theme.padding050
 import com.example.thechatapp.ui.theme.padding200
 import com.example.thechatapp.ui.theme.padding300
@@ -34,7 +37,8 @@ private const val ROUNDED_CORNER_PERCENT = 20
 fun MessageBubble(
     text: String,
     isMessageFromCurrentUser: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isMessageRead: Boolean = true,
 ) {
     Box(
         modifier = modifier
@@ -50,7 +54,10 @@ fun MessageBubble(
     ) {
         Text(
             text = text,
-            style = Typography.bodyLarge.copy(fontSize = messageFontSize),
+            style = Typography.bodyLarge.copy(
+                fontSize = messageFontSize,
+                color = if (isMessageFromCurrentUser) onDarkBackgroundColor else onLightBackgroundColor,
+            ),
             modifier = Modifier.padding(
                 top = padding200,
                 start = padding200,
@@ -59,12 +66,11 @@ fun MessageBubble(
             )
         )
 
-        // Since this app is fully offline, read message marker is here for decoration
         if (isMessageFromCurrentUser) {
             Icon(
                 painter = painterResource(R.drawable.ic_message_read),
                 contentDescription = null,
-                tint = messageReadColor,
+                tint = if (isMessageRead) messageReadColor else messageUnReadColor,
                 modifier = Modifier
                     .padding(padding050)
                     .size(messageReadIconSize)

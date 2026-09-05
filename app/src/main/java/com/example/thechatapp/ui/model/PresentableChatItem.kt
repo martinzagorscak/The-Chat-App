@@ -1,7 +1,7 @@
 package com.example.thechatapp.ui.model
 
 sealed class PresentableChatItem {
-    data class PresentableMessageItem(
+    data class MessageItem(
         val id: String,
         val content: String,
         val timestamp: Long,
@@ -10,7 +10,7 @@ sealed class PresentableChatItem {
         val isRead: Boolean,
     ) : PresentableChatItem()
 
-    data class PresentableTimeStampDividerItem(
+    data class TimeStampDividerItem(
         val timestamp: Long,
         val dayOfWeek: String,
         val formattedTime: String,

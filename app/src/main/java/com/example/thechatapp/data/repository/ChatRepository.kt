@@ -2,6 +2,7 @@ package com.example.thechatapp.data.repository
 
 import com.example.thechatapp.data.persistance.MessageDao
 import com.example.thechatapp.data.persistance.model.Message
+import com.example.thechatapp.data.persistance.model.toChatMessageItem
 import com.example.thechatapp.domain.model.ChatItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -40,16 +41,7 @@ internal class ChatRepositoryImpl(
                 previousMessage.senderId == messageEntity.senderId &&
                 abs(messageEntity.timestamp - previousMessage.timestamp) <= CONSECUTIVE_MESSAGE_WINDOW_MILLIS
 
-            result.add(
-                ChatItem.Message(
-                    id = messageEntity.id,
-                    content = messageEntity.content,
-                    timestamp = messageEntity.timestamp,
-                    hasCurrentUserSent = messageEntity.senderId != messageEntity.chatRoomId, // chatRoomId is the other user's id
-                    isConsecutiveMessage = isConsecutiveMessage,
-                    isRead = true, // mocked, since the app is offline
-                )
-            )
+            result.add(messageEntity.toChatMessageItem(isConsecutiveMessage = isConsecutiveMessage))
 
             // Add TimeStampDivider if no previous message or more than an hour passed
             val shouldAddDivider = previousMessage == null ||
