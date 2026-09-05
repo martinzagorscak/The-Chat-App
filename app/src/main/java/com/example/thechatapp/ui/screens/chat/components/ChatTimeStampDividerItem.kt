@@ -19,7 +19,7 @@ import com.example.thechatapp.ui.theme.tertiaryColor
 private val timeStampFontSize = 18.sp
 
 @Composable
-fun ChatTimeStampItem(
+fun ChatTimeStampDividerItem(
     dayOfWeek: String,
     time: String,
     modifier: Modifier = Modifier
@@ -46,8 +46,8 @@ fun ChatTimeStampItem(
 
 @Preview
 @Composable
-private fun ChatTimeStampItemPreview() {
-    ChatTimeStampItem(
+private fun ChatTimeStampDividerItemPreview() {
+    ChatTimeStampDividerItem(
         dayOfWeek = "Thursday",
         time = "11:59"
     )

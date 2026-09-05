@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.example.thechatapp.R
 import com.example.thechatapp.ui.theme.Typography
 import com.example.thechatapp.ui.theme.messageReadColor
-import com.example.thechatapp.ui.theme.padding100
+import com.example.thechatapp.ui.theme.padding050
 import com.example.thechatapp.ui.theme.padding200
 import com.example.thechatapp.ui.theme.padding300
 import com.example.thechatapp.ui.theme.primaryColor
@@ -33,7 +33,7 @@ private const val ROUNDED_CORNER_PERCENT = 20
 @Composable
 fun MessageBubble(
     text: String,
-    isCurrentUserMessage: Boolean,
+    isMessageFromCurrentUser: Boolean,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -42,26 +42,31 @@ fun MessageBubble(
                 RoundedCornerShape(
                     topStartPercent = ROUNDED_CORNER_PERCENT,
                     topEndPercent = ROUNDED_CORNER_PERCENT,
-                    bottomStartPercent = if (isCurrentUserMessage) ROUNDED_CORNER_PERCENT else 0,
-                    bottomEndPercent = if (isCurrentUserMessage) 0 else ROUNDED_CORNER_PERCENT
+                    bottomStartPercent = if (isMessageFromCurrentUser) ROUNDED_CORNER_PERCENT else 0,
+                    bottomEndPercent = if (isMessageFromCurrentUser) 0 else ROUNDED_CORNER_PERCENT
                 )
             )
-            .background(if (isCurrentUserMessage) primaryColor else tertiaryColor)
+            .background(if (isMessageFromCurrentUser) primaryColor else tertiaryColor)
     ) {
         Text(
             text = text,
             style = Typography.bodyLarge.copy(fontSize = messageFontSize),
-            modifier = Modifier.padding(padding300)
+            modifier = Modifier.padding(
+                top = padding200,
+                start = padding200,
+                bottom = padding300.takeIf { isMessageFromCurrentUser } ?: padding200,
+                end = padding300.takeIf { isMessageFromCurrentUser } ?: padding200,
+            )
         )
 
         // Since this app is fully offline, read message marker is here for decoration
-        if (isCurrentUserMessage) {
+        if (isMessageFromCurrentUser) {
             Icon(
                 painter = painterResource(R.drawable.ic_message_read),
                 contentDescription = null,
                 tint = messageReadColor,
                 modifier = Modifier
-                    .padding(padding100)
+                    .padding(padding050)
                     .size(messageReadIconSize)
                     .align(Alignment.BottomEnd)
             )
@@ -75,11 +80,11 @@ private fun MessageBubblePreview() {
     Column(verticalArrangement = Arrangement.spacedBy(padding200)) {
         MessageBubble(
             text = "Hello!",
-            isCurrentUserMessage = true,
+            isMessageFromCurrentUser = true,
         )
         MessageBubble(
             text = "Hi there!",
-            isCurrentUserMessage = false,
+            isMessageFromCurrentUser = false,
         )
     }
 }
