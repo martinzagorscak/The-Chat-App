@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlin.math.abs
 import kotlin.time.Duration.Companion.milliseconds
 
-private val ONE_SECOND = 1000L // in millis
+private val ONE_SECOND_MILLIS = 1000L
 private val CONSECUTIVE_MESSAGE_WINDOW_MILLIS = 20_000L
+private val ONE_HOUR_MILLIS = 3600000L
 
 interface ChatRepository {
     fun chatMessages(userId: String): Flow<List<ChatItem>>
@@ -31,21 +32,35 @@ internal class ChatRepositoryImpl(
 ) : ChatRepository {
 
     override fun chatMessages(userId: String): Flow<List<ChatItem>> = messageDao.getMessages(chatRoomId = userId).mapLatest { messages ->
-        messages.mapIndexed { index, messageEntity ->
+        val result = mutableListOf<ChatItem>()
+
+        messages.forEachIndexed { index, messageEntity ->
             val previousMessage = messages.getOrNull(index + 1)
             val isConsecutiveMessage = previousMessage != null &&
                 previousMessage.senderId == messageEntity.senderId &&
                 abs(messageEntity.timestamp - previousMessage.timestamp) <= CONSECUTIVE_MESSAGE_WINDOW_MILLIS
 
-            ChatItem.Message(
-                id = messageEntity.id,
-                content = messageEntity.content,
-                timestamp = messageEntity.timestamp,
-                hasCurrentUserSent = messageEntity.senderId != messageEntity.chatRoomId, // chatRoomId is the other user's id
-                isConsecutiveMessage = isConsecutiveMessage,
-                isRead = true, // mocked, since the app is offline
+            result.add(
+                ChatItem.Message(
+                    id = messageEntity.id,
+                    content = messageEntity.content,
+                    timestamp = messageEntity.timestamp,
+                    hasCurrentUserSent = messageEntity.senderId != messageEntity.chatRoomId, // chatRoomId is the other user's id
+                    isConsecutiveMessage = isConsecutiveMessage,
+                    isRead = true, // mocked, since the app is offline
+                )
             )
+
+            // Add TimeStampDivider if no previous message or more than an hour passed
+            val shouldAddDivider = previousMessage == null ||
+                abs(messageEntity.timestamp - previousMessage.timestamp) > ONE_HOUR_MILLIS
+
+            if (shouldAddDivider) {
+                result.add(ChatItem.TimeStampDivider(messageEntity.timestamp))
+            }
         }
+
+        result
     }
 
     override suspend fun sendMessage(
@@ -77,7 +92,7 @@ internal class ChatRepositoryImpl(
         receiverId: String,
         message: String,
     ) {
-        delay(ONE_SECOND.milliseconds) // simulate bot response delay
+        delay(ONE_SECOND_MILLIS.milliseconds) // simulate bot response delay
 
         val timeStamp = System.currentTimeMillis()
 
