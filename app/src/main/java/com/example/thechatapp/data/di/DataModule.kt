@@ -1,6 +1,6 @@
 package com.example.thechatapp.data.di
 
-import androidx.room3.Room
+import androidx.room.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.example.thechatapp.data.persistance.ChatDatabase
 import com.example.thechatapp.data.persistance.MessageDao
@@ -16,6 +16,7 @@ val dataModule = module {
     single<MessageDao> {
         Room.databaseBuilder<ChatDatabase>(context = androidApplication(), name = APP_DB_NAME)
             .setDriver(AndroidSQLiteDriver())
+            .fallbackToDestructiveMigration(dropAllTables = true)
             .build().messageDao()
     }
 }

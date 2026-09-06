@@ -1,9 +1,13 @@
 package com.example.thechatapp.data.persistance.model
 
-import androidx.room3.Entity
-import androidx.room3.PrimaryKey
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
 
-@Entity
+@Entity(
+    tableName = "Messages",
+    indices = [Index(value = ["timestamp"])]
+)
 data class Message(
     @PrimaryKey val id: String,
     val chatRoomId: String, // same as participant (other non-logged-in) user id

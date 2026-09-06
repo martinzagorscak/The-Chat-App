@@ -11,7 +11,8 @@ composeBom = "2026.02.01"
 coil = "3.6.1"
 koin = "4.2.2"
 kotlinxDateTime = "0.8.0"
-room_version = "3.0.2"
+room_version = "2.8.4"
+paging = "3.5.1"
 ksp = "2.3.11"
 
 [libraries]
@@ -34,8 +35,11 @@ coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", versi
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
-androidx-room-runtime = { group = "androidx.room3", name = "room3-runtime", version.ref = "room_version" }
-androidx-room-compiler = { group = "androidx.room3", name = "room3-compiler", version.ref = "room_version" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
+androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room_version" }
+androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val viewModel = koinViewModel<ChatViewModel>()
                     val userViewState by viewModel.userViewState().collectAsState(initial = ChatViewState.UserViewState.INITIAL)
-                    val messagesViewState by viewModel.messagesViewState().collectAsState(initial = ChatViewState.MessagesViewState.Loading)
+                    val messagesViewState by viewModel.messagesViewState().collectAsState(initial = ChatViewState.MessagesViewState.INITIAL)
                     val messageInputViewState by viewModel.messageInputViewState()
                         .collectAsState(initial = ChatViewState.MessageInputViewState.INITIAL)
                     var showClearChatDialog by remember { mutableStateOf(false) }

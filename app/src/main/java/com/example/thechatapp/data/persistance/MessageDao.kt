@@ -1,20 +1,20 @@
 package com.example.thechatapp.data.persistance
 
-import androidx.room3.Dao
-import androidx.room3.Insert
-import androidx.room3.Query
+import androidx.paging.PagingSource
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 import com.example.thechatapp.data.persistance.model.Message
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MessageDao {
 
-    @Query("SELECT * FROM Message WHERE chatRoomId = :chatRoomId ORDER BY timestamp DESC")
-    fun getMessages(chatRoomId: String): Flow<List<Message>>
+    @Query("SELECT * FROM Messages WHERE chatRoomId = :chatRoomId ORDER BY timestamp DESC")
+    fun getMessagesPagingSource(chatRoomId: String): PagingSource<Int, Message>
 
     @Insert
     suspend fun insertMessage(message: Message)
 
-    @Query("DELETE FROM Message WHERE chatRoomId = :chatRoomId")
+    @Query("DELETE FROM Messages WHERE chatRoomId = :chatRoomId")
     suspend fun clearChat(chatRoomId: String)
 }
