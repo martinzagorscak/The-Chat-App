@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "Messages",
-    indices = [Index(value = ["timestamp"])]
+    indices = [Index(value = ["timestamp"], orders = [Index.Order.DESC])]
 )
 data class Message(
     @PrimaryKey val id: String,
