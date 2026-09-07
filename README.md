@@ -43,7 +43,11 @@ The Chat App is an Android messaging prototype designed for focused 1-on-1 conve
 - **Backend integration**: Connect to a real-time backend service for live messaging and data synchronization.
 
 ## Note:
-GitHub repository with Bitrise CI/CD. To test the app without app [here](https://app.bitrise.io/app/3868b8f0-60ef-4ef3-ab00-6c321d6b789f/installable-artifacts/df044ebb67e49e24/public-install-page/adcd32c3f8df8dd6236a883b72bdb819).
-
+GitHub repository is connected with Bitrise CI/CD, so you can test the by downloading app [here](https://app.bitrise.io/app/3868b8f0-60ef-4ef3-ab00-6c321d6b789f/installable-artifacts/df044ebb67e49e24/public-install-page/adcd32c3f8df8dd6236a883b72bdb819).
 
 **Specs can be found [here](specs.pdf).**
+
+Video recording:
+
+[recording.webm](recording.webm)
+
